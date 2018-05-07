@@ -1,0 +1,344 @@
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" ></script>
+
+<script type="text/javascript">
+	/*
+===============================================================
+
+Hi! Welcome to my little playground!
+
+My name is Tobias Bogliolo. 'Open source' by default and always 'responsive',
+I'm a publicist, visual designer and frontend developer based in Barcelona. 
+
+Here you will find some of my personal experiments. Sometimes usefull,
+sometimes simply for fun. You are free to use them for whatever you want 
+but I would appreciate an attribution from my work. I hope you enjoy it.
+
+===============================================================
+*/
+//Page scrolling snippet (http://codepen.io/tobiasdev/pen/qNdrBZ):
+$(function(){
+  $('a[href^="#"]:not([href="#"])').click(function(){
+    $("html, body").animate({
+      //IMPORTANT: One extra pixel to pass the line!
+      scrollTop: $($(this).attr("href")).position().top + 1
+    }, 500);
+    return false;
+  });
+});
+
+//Set line width and position:
+function setLine(tab){
+  var tabWidth = $(tab).outerWidth();
+  var tabPos = $(tab).position();
+  $(".indicator-line").css({
+    "width": tabWidth,
+    "left": tabPos.left
+  });
+};
+
+//Line move:
+function lineMove(){
+  $('.tab').each(function (){
+    var scrollPos = $(document).scrollTop();
+    var linkRef = $($(this).attr("href"));
+    var refPos = linkRef.position().top;
+    var refHeight = linkRef.height();
+    if(refPos <= scrollPos && refPos + refHeight > scrollPos){
+      $('.tab').removeClass("active-tab");
+      $(this).addClass("active-tab");
+      setLine(this);
+    };
+  });
+};
+
+//Run function:
+$(document).ready(function(){
+  //On document load:
+  lineMove();
+  //On window scroll or resize:
+  $(window).on("scroll resize", lineMove);
+});
+</script>
+<style type="text/css">
+	/*
+===================
+===================
+Global
+===================
+===================
+*/
+:root {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #616161;
+  background: #e1e8f0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+	color: #6ed3cf;
+}
+
+/*
+===================
+===================
+Nav
+===================
+===================
+*/
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #6ed3cf;
+  z-index: 1;
+}
+
+.indicator {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: #d3f1f0;
+}
+
+.indicator-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  background: #9068be;
+  transition:
+    width ease .3s,
+    left cubic-bezier(.4,.95,.5,1.5) .5s;
+}
+
+.menu {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.menu li {
+  display: inline-block;
+}
+
+.tab {
+  padding: 12px 8px;
+  color: #FFFFFF;
+  font-weight: 600;
+  letter-spacing: .025em;
+  text-decoration: none;
+}
+
+.active-tab {
+  color: #9068be;
+}
+
+/*
+===================
+===================
+Content
+===================
+===================
+*/
+.sec {
+  position: relative;
+  width: 90%;
+  max-width: 680px;
+  margin: 80px auto;
+  padding: 40px;
+  background: #ffffff;
+  box-shadow:
+    0 8px 16px rgba(50,50,90,0.1),
+    0 2px 7px rgba(0,0,0,0.07);
+}
+.sec li .block{
+	background-color: #9068be;
+	width: auto;
+	display: inline-block;
+	padding: 2px 15px;
+	margin-right: 15px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	color: #fff;
+}
+.sec:before,
+.sec:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: #9068be;
+  z-index: -1;
+}
+
+.sec:before {
+  width: 90%;
+  height: 23px;
+  bottom: -13px;
+  box-shadow:
+    0 8px 16px rgba(50,50,90,0.1),
+    0 2px 7px rgba(0,0,0,0.07);
+}
+
+.sec:after {
+  width: 50px;
+  height: 50px;
+  bottom: -25px;
+  border-radius: 25px;
+}
+.article img{
+	width: 100%;
+	height: auto;
+}
+p {
+  font-size: .9em;
+}
+
+h3 {
+  padding-bottom: 20px;
+  letter-spacing: .25em;
+  color: #9068be;
+  text-align: center;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+/* Drop cap */
+p:nth-child(2):first-letter {
+  float: left;
+  font-size: 3.2em;
+  margin-right: 15px;
+  line-height: 1;
+  color: #F6BB42;
+}
+.footer{
+	text-align: center;
+	margin: 15px 0px;
+}
+</style>
+
+<header>
+  <nav>
+    <ul class="menu">
+      <li><a href="#sec1" class="tab">HOME</a></li>
+      <li><a href="#sec2" class="tab">INSTALLATION</a></li>
+      <li><a href="#sec3" class="tab">Numquam</a></li>
+      <li><a href="#sec4" class="tab">Voluptatem</a></li>
+      <li><a href="#sec5" class="tab">Ipsum</a></li>
+    </ul>
+    <div class="indicator">
+      <div class="indicator-line"></div>
+    </div>
+  </nav>
+</header>
+
+<div class="wrapper">
+
+  <section id="sec1" class="sec">
+    <div class="atas">
+    	<center>
+    		<img src="img/logo.png">
+	    	<h2>Responsive Bootstrap Template</h2>
+	    	<a href="http://woonesia.com">
+	    		WooNesia.com
+	    	</a>
+    	</center>
+    	
+    </div>
+  </section>
+
+  <section id="sec2" class="sec">
+    <h3>INSTALLATION</h3>
+    <span>Installing Slice Restaurant Template</span>
+    <h4>FTP Upload:</h4>
+    <ul>
+    	<li>Open up your FTP manager and connect to your hosting</li>
+    	<li>Browse to required directory (Normally public_html)</li>
+    	<li>Upload the files inside Slice Restaurant folder</li>
+    </ul>
+  </section>
+
+  <section id="sec3" class="sec">
+    <h3>PAGES</h3>
+    <span>Page details for Noonesia template</span>
+    <h4>Pages are as follows:</h4>
+    <ul>
+    	<li><div class="block">index.html</div>Home Page</li>
+    	<li><div class="block">about1.html</div>About Us</li>
+    </ul>
+  </section>
+
+  <section id="sec4" class="sec">
+    <h3>FONT</h3>
+   	<span>Fonts used for NooNesia template</span>
+    <h4>The following stylesheets have been used for Font:</h4>
+    <ul>
+    	<li><div class="block">https://fonts.googleapis.com/css?family=Roboto:300,400,500,700</div></li>
+    	<li><div class="block">https://fonts.googleapis.com/css?family=Dancing+Script:400,700</div></li>
+    </ul>
+  </section>
+
+  <section id="sec5" class="sec">
+    <h3>CSS</h3>
+   	<span>The CSS used for NooNesia template</span>
+    <h4>The following stylesheets have been used for CSS:</h4>
+    <ul>
+    	<li><div class="block">css/bootstrap.min.css</div></li>
+    	<li><div class="block">css/font-awesome.min.css</div></li>
+    </ul>
+  </section>
+
+  <section id="sec6" class="sec">
+    <h3>JAVASCRIPT</h3>
+   	<span>JS (JavaScript) files used for NooNesia template</span>
+    <h4>The following JS files have been used for Template:</h4>
+    <ul>
+    	<li><div class="block">js/jquery-3.2.0.min.js</div></li>
+    	<li><div class="block">js/bootstrap.min.js</div></li>
+    </ul>
+  </section>
+
+  <section id="sec7" class="sec">
+    <h3>CUSTOMIZATION</h3>
+   	<span>Some customization tricks</span>
+    <div class="article">
+    	<h4>How to Change Title</h4>
+	    <img src="img/title.jpg">
+	    <h4>How to Change Favicon</h4>
+	    <img src="img/favicon-change.jpg">
+	    <h4>How to Change Copyright</h4>
+	    <img src="img/copyright.jpg">
+    </div>
+  </section>
+
+  <section id="sec8" class="sec">
+    <center>
+    	<h2>CONTACT TEAM</h2>
+    	<span>
+    		Feel free to email us to provide some feedback on our themes, give us suggestions for new templates and themes
+    	</span>
+    	<h3>WooNesia.com</h3>
+    </center>
+  </section>
+
+</div>
+<div class="footer">
+	Copyright © ePlugin 2017
+</div>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
